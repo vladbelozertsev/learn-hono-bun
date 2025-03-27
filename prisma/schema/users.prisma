@@ -1,0 +1,15 @@
+model Users {
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  emailVerified Boolean @default(false)
+  name          String
+  password      String
+  signature     String  @default("")
+  role          String  @default("user")
+}
+
+model UsersFiles {
+  userId Int
+  fileId Int
+  @@id([userId, fileId])
+}

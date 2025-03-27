@@ -1,0 +1,33 @@
+model Files {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  createAt Int
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL_PRISMA")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../types"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+model Users {
+  id            Int     @id @default(autoincrement())
+  email         String  @unique
+  emailVerified Boolean @default(false)
+  name          String
+  password      String
+  signature     String  @default("")
+  role          String  @default("user")
+}
+
+model UsersFiles {
+  userId Int
+  fileId Int
+
+  @@id([userId, fileId])
+}

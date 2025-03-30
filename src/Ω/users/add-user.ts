@@ -24,13 +24,20 @@ app.post("/users", jsonv, async (c) => {
   `;
 
   if (existedUser) return c.text("Email already busy", 401);
-  const refreshToken = await token.refresh(email);
-  const accessToken = await token.access(email);
-  const signature = await hash(refreshToken.split(".")[2], 10);
 
   const [user]: [User["value"]] = await sql`
-    INSERT INTO "Users" ${sql({ name, email, password, signature })}
+    INSERT INTO "Users" ${sql({ name, email, password })}
     RETURNING *
+  `;
+
+  const refreshToken = await token.refresh(user.id);
+  const accessToken = await token.access(user.id);
+  const signature = await hash(refreshToken.split(".")[2], 10);
+
+  await sql`
+    UPDATE "Users"
+    SET "signature" = ${signature}
+    WHERE "id" = ${user.id};
   `;
 
   return c.json<User["valid"]>({

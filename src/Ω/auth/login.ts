@@ -25,8 +25,8 @@ app.post("/auth", jsonv, async (c) => {
 
   if (!user) throw new HTTPException(401, { message: "Invalid email" });
   if (user.password !== json.password) throw new HTTPException(401, { message: "Invalid password" });
-  const refreshToken = await token.refresh(user.email);
-  const accessToken = await token.access(user.email);
+  const refreshToken = await token.refresh(user.id);
+  const accessToken = await token.access(user.id);
   const signature = await hash(refreshToken.split(".")[2], 10);
 
   await sql`

@@ -8,6 +8,7 @@ import { hash } from "bcrypt";
 import { sql } from "bun";
 import { token } from "../../libs/helpers/token";
 import { verify } from "hono/jwt";
+import { Token } from "../../libs/types/token.js";
 
 const refresh = bearerAuth({
   verifyToken: async (token) => {
@@ -21,13 +22,13 @@ const refresh = bearerAuth({
 
 app.post("/auth/refresh", refresh, async (c) => {
   const tokenJwt = c.req.header().authorization.split(" ")[1];
-  const tokenDecoded = decode(tokenJwt).payload as JWTPayload & { email: string };
+  const tokenDecoded = decode(tokenJwt).payload as JWTPayload & Token;
   const noPayload = !tokenDecoded.exp || !tokenDecoded.email;
   if (noPayload) throw new HTTPException(401, { message: "Payload undefined" });
 
   const [user]: [User["value"] | undefined] = await sql`
     SELECT * FROM "Users"
-    WHERE "email" = ${tokenDecoded.email}
+    WHERE "id" = ${tokenDecoded.id}
   `;
 
   if (!user?.signature) throw new HTTPException(401, { message: "Token cancelled" });
@@ -43,8 +44,8 @@ app.post("/auth/refresh", refresh, async (c) => {
   const refreshTokenRestTime = tokenDecoded.exp! - Math.round(Date.now() / 1000) - 30;
   const isAccessTokenExpired = refreshTokenRestTime + accessTokenTime <= refreshTokenTime;
   if (isAccessTokenExpired) {
-    const accessToken = await token.access(tokenDecoded.email);
-    const refreshToken = await token.refresh(tokenDecoded.email);
+    const accessToken = await token.access(tokenDecoded.id);
+    const refreshToken = await token.refresh(tokenDecoded.id);
     const signature = await hash(refreshToken.split(".")[2], 10);
 
     await sql`

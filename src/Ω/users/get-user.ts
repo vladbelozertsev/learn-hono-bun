@@ -4,18 +4,19 @@ import { auth } from "../../libs/mws/auth.js";
 import { decode } from "hono/jwt";
 import { delkeys } from "../../libs/helpers/utils";
 import { sql } from "bun";
+import { Token } from "../../libs/types/token.js";
 
 app.get("/users", auth, async (c) => {
   const tokenJwt = c.req.header().authorization.split(" ")[1];
-  const tokenDecoded = decode(tokenJwt).payload as { email: string };
+  const tokenDecoded = decode(tokenJwt).payload as Token;
 
-  if (!tokenDecoded?.email) {
+  if (!tokenDecoded?.id) {
     throw new HTTPException(401, { message: "Email is empty" });
   }
 
   const [user]: [User["value"] | undefined] = await sql`
     SELECT * FROM "Users"
-    WHERE "email" = ${tokenDecoded.email}
+    WHERE "id" = ${tokenDecoded.id}
   `;
 
   if (!user) {

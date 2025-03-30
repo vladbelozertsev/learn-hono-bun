@@ -49,7 +49,7 @@ app.post("/auth/refresh", refresh, async (c) => {
 
     await sql`
       UPDATE "Users"
-      SET "refreshToken" = ${signature}
+      SET "signature" = ${signature}
       WHERE "email" = ${tokenDecoded.email};
     `;
 
@@ -58,7 +58,7 @@ app.post("/auth/refresh", refresh, async (c) => {
 
   await sql`
     UPDATE "Users"
-    SET "refreshToken" = ${""}
+    SET "signature" = ${""}
     WHERE "email" = ${tokenDecoded.email};
   `;
 

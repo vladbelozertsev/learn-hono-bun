@@ -31,7 +31,7 @@ app.post("/auth", jsonv, async (c) => {
 
   await sql`
     UPDATE "Users"
-    SET "refreshToken" = ${signature}
+    SET "signature" = ${signature}
     WHERE "email" = ${json.email};
   `;
 

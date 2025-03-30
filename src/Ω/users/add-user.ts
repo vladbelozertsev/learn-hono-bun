@@ -10,7 +10,7 @@ const jsonv = validator({
   target: "json",
   schema: z.object({
     email: z.string().email(),
-    name: z.string().nonempty(),
+    name: z.string().nonempty().max(30),
     password: z.string().min(6),
   }),
 });
@@ -29,7 +29,7 @@ app.post("/users", jsonv, async (c) => {
   const signature = await hash(refreshToken.split(".")[2], 10);
 
   const [user]: [User["value"]] = await sql`
-    INSERT INTO "Users" ${sql({ name, email, password, refreshToken: signature })}
+    INSERT INTO "Users" ${sql({ name, email, password, signature })}
     RETURNING *
   `;
 

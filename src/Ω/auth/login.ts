@@ -1,5 +1,5 @@
-import type { User } from "../../libs/types/user";
 import { HTTPException } from "hono/http-exception";
+import { User } from "../../libs/types/user";
 import { delkeys } from "../../libs/helpers/utils";
 import { hash } from "bcrypt";
 import { sql } from "bun";

@@ -1,10 +1,10 @@
 import { HTTPException } from "hono/http-exception";
+import { Token } from "../../libs/types/token.js";
 import { User } from "../../libs/types/user.js";
 import { auth } from "../../libs/mws/auth.js";
 import { decode } from "hono/jwt";
 import { delkeys } from "../../libs/helpers/utils";
 import { sql } from "bun";
-import { Token } from "../../libs/types/token.js";
 
 app.get("/users", auth, async (c) => {
   const tokenJwt = c.req.header().authorization.split(" ")[1];

@@ -1,5 +1,5 @@
+import type { BlankEnv, BlankSchema } from "hono/types";
 import type { Hono } from "hono";
-import { BlankEnv, BlankSchema } from "hono/types";
 
 type App = Hono<BlankEnv, BlankSchema, "api">;
 

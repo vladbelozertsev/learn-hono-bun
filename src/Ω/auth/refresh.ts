@@ -1,14 +1,12 @@
-import type { JWTPayload } from "hono/utils/jwt/types";
 import { HTTPException } from "hono/http-exception";
-import { User } from "../../libs/types/user.js";
+import { JWTPayload } from "hono/utils/jwt/types";
+import { Token } from "../../libs/types/token.js";
+import { User } from "../../libs/types/user";
 import { bearerAuth } from "hono/bearer-auth";
-import { compare } from "bcrypt";
-import { decode } from "hono/jwt";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
+import { decode, verify } from "hono/jwt";
 import { sql } from "bun";
 import { token } from "../../libs/helpers/token";
-import { verify } from "hono/jwt";
-import { Token } from "../../libs/types/token.js";
 
 const refresh = bearerAuth({
   verifyToken: async (token) => {

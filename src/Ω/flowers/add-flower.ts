@@ -1,6 +1,6 @@
 import { upload } from "../../libs/helpers/upload/index.js";
 
-app.post("/flowers", async (c) => {
+app.post("api/flowers", async (c) => {
   await upload({
     ctx: c,
     dir: "public",

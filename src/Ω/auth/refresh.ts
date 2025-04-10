@@ -18,7 +18,7 @@ const refresh = bearerAuth({
   },
 });
 
-app.post("/auth/refresh", refresh, async (c) => {
+app.post("api/auth/refresh", refresh, async (c) => {
   const tokenJwt = c.req.header().authorization.split(" ")[1];
   const tokenDecoded = decode(tokenJwt).payload as JWTPayload & Token;
   const noPayload = !tokenDecoded.exp || !tokenDecoded.email;

@@ -6,7 +6,7 @@ import { decode } from "hono/jwt";
 import { delkeys } from "../../libs/helpers/utils";
 import { sql } from "bun";
 
-app.get("/users", auth, async (c) => {
+app.get("api/users", auth, async (c) => {
   const tokenJwt = c.req.header().authorization.split(" ")[1];
   const tokenDecoded = decode(tokenJwt).payload as Token;
 

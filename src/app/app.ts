@@ -1,10 +1,12 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import { privatemw } from "../libs/mws/private";
+import { serveStatic } from "hono/bun";
 
-const basePath = "api" as const;
-export const _app = new Hono().basePath(basePath);
+export const _app = new Hono();
+_app.get("public/*", serveStatic({}));
 
-global.app = _app;
+_app.get("private/*", privatemw, serveStatic({}));
 
 _app.use(
   "*",
@@ -15,3 +17,5 @@ _app.use(
     // credentials: true, // for cookies
   })
 );
+
+global.app = _app;

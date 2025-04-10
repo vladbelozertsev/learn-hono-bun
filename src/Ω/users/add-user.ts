@@ -15,7 +15,7 @@ const jsonv = validator({
   }),
 });
 
-app.post("/users", jsonv, async (c) => {
+app.post("api/users", jsonv, async (c) => {
   const { email, name, password } = c.req.valid("json");
 
   const [existedUser]: [User["value"] | undefined] = await sql`

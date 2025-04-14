@@ -3,7 +3,7 @@ import { Token } from "../../libs/types/token.js";
 import { User } from "../../libs/types/user.js";
 import { auth } from "../../libs/mws/auth.js";
 import { decode } from "hono/jwt";
-import { delkeys } from "../../libs/helpers/utils";
+import { delkeys } from "../../libs/helpers/utils/index.js";
 import { sql } from "bun";
 
 app.get("api/users", auth, async (c) => {

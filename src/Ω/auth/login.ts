@@ -11,11 +11,12 @@ const jsonv = validator({
   target: "json",
   schema: z.object({
     email: z.string().email().nonempty(),
-    password: z.string().nonempty(),
+    password: z.string().nonempty().max(72),
   }),
 });
 
 app.post("api/auth", jsonv, async (c) => {
+  console.log(c);
   const json = c.req.valid("json");
 
   const [user]: [User["value"] | undefined] = await sql`

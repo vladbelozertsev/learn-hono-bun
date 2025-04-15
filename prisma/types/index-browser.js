@@ -130,7 +130,9 @@ exports.Prisma.UsersScalarFieldEnum = {
   name: 'name',
   password: 'password',
   signature: 'signature',
-  role: 'role'
+  role: 'role',
+  oauth: 'oauth',
+  oauthId: 'oauthId'
 };
 
 exports.Prisma.UsersFilesScalarFieldEnum = {
@@ -146,6 +148,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

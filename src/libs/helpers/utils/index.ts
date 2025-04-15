@@ -18,3 +18,17 @@ export const numberWithSpaces = (x: number) => {
 export const capitalize = (s: string) => {
   return (s && s[0].toUpperCase() + s.slice(1)) || "";
 };
+
+export const sanitize = (text: string) => {
+  const map: Record<string, string> = {
+    "<": "&lt;",
+    ">": "&gt;",
+    "&": "&amp;",
+    "'": "&#39;",
+    '"': "&quot;",
+    "/": "&#47;",
+  };
+  return text.replace(/[<>&'"\/]/g, (char: string): string => map[char]);
+};
+
+//https://github.com/colinhacks/zod/discussions/1358

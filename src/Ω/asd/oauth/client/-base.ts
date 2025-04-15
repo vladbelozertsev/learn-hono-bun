@@ -1,8 +1,8 @@
-import type { OauthProvider } from "./-client";
+import type { OauthProvider } from "./-all";
 import crypto from "crypto";
 import { z } from "zod";
 
-export class OAuthClient<T> {
+export class OAuthBase<T> {
   private readonly provider: OauthProvider;
   private readonly clientId: string;
   private readonly clientSecret: string;

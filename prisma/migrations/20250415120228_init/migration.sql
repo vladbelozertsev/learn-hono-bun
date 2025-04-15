@@ -13,9 +13,10 @@ CREATE TABLE "Users" (
     "email" TEXT NOT NULL,
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
     "name" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "refreshToken" TEXT NOT NULL DEFAULT '',
+    "password" TEXT,
+    "signature" TEXT,
     "role" TEXT NOT NULL DEFAULT 'user',
+    "oauth" TEXT,
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
 );
@@ -30,6 +31,3 @@ CREATE TABLE "UsersFiles" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Files_name_key" ON "Files"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");

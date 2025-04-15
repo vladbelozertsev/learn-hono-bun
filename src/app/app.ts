@@ -11,8 +11,8 @@ _app.get("private/*", privatemw, serveStatic({}));
 _app.use(
   "*",
   cors({
-    origin: ["http://localhost:3001", "http://192.168.0.10:3001"],
-    // allowHeaders: ["Origin", "Content-Type", "Authorization"],
+    origin: "http://localhost:3001",
+    // allowHeaders: ["Origin", "Content-Type", "Authorization", "Access-Control-Allow-Origin"],
     // allowMethods: ["GET", "OPTIONS", "POST", "PUT", "DELETE"],
     credentials: true, // for cookies
   })

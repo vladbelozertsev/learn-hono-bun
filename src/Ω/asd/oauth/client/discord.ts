@@ -1,8 +1,8 @@
-import { OAuthClient } from "./-base";
+import { OAuthBase } from "./-base";
 import { z } from "zod";
 
 export function createDiscordOAuthClient() {
-  return new OAuthClient({
+  return new OAuthBase({
     provider: "discord",
     clientId: process.env.DISCORD_CLIENT_ID || "",
     clientSecret: process.env.DISCORD_CLIENT_SECRET || "",

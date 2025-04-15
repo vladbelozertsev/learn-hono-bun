@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
-import { Token } from "../../libs/types/token.js";
-import { auth } from "../../libs/mws/auth.js";
+import { Token } from "../../../libs/types/token.js";
+import { auth } from "../../../libs/mws/auth.js";
 import { decode } from "hono/jwt";
 import { sql } from "bun";
 

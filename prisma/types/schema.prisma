@@ -17,12 +17,14 @@ generator client {
 
 model Users {
   id            Int     @id @default(autoincrement())
-  email         String  @unique
+  email         String
   emailVerified Boolean @default(false)
   name          String
-  password      String
-  signature     String  @default("")
+  password      String?
+  signature     String?
   role          String  @default("user")
+  oauth         String?
+  oauthId       String?
 }
 
 model UsersFiles {

@@ -1,0 +1,12 @@
+// Generate JS/TS
+bun prisma generate
+
+// Migration
+bun prisma migrate dev --name $$$name_of_migration$$$
+
+// Reset
+bun prisma migrate reset
+
+Links:
+https://www.prisma.io/docs/orm/tools/prisma-cli
+https://www.prisma.io/docs/orm/prisma-migrate/getting-started

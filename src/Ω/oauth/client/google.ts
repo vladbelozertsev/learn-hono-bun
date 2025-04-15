@@ -1,5 +1,5 @@
 import { OAuthBase } from "./-base";
-import { sanitize } from "../../../../libs/helpers/utils";
+import { sanitize } from "../../../libs/helpers/utils";
 import { z } from "zod";
 
 export function createGoogleOAuthClient() {

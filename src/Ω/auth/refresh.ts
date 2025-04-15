@@ -1,11 +1,11 @@
 import { HTTPException } from "hono/http-exception";
-import { Token } from "../../../libs/types/token.js";
-import { User } from "../../../libs/types/user.js";
+import { Token } from "../../libs/types/token.js";
+import { User } from "../../libs/types/user.js";
 import { bearerAuth } from "hono/bearer-auth";
 import { compare, hash } from "bcrypt";
 import { decode, verify } from "hono/jwt";
 import { sql } from "bun";
-import { token } from "../../../libs/helpers/token/index.js";
+import { token } from "../../libs/helpers/token/index.js";
 
 const refresh = bearerAuth({
   verifyToken: async (token) => {
@@ -21,8 +21,6 @@ app.post("api/auth/refresh", refresh, async (c) => {
   const tokenJwt = c.req.header().authorization.split(" ")[1];
   const tokenDecoded = decode(tokenJwt).payload as Token;
   if (!tokenDecoded.id) throw new HTTPException(401, { message: "Id undefined" });
-
-  console.log(tokenDecoded.id);
 
   const [user]: [User["value"] | undefined] = await sql`
     SELECT * FROM "Users"

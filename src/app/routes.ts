@@ -1,4 +1,4 @@
-import "../Ω/asd/auth";
+import "../Ω/auth";
+import "../Ω/oauth";
+import "../Ω/users";
 import "../Ω/flowers";
-import "../Ω/asd/oauth";
-import "../Ω/asd/users";

@@ -1,11 +1,11 @@
 import { OauthProvider, oauthClient } from "./client/-all";
-import { User } from "../../../libs/types/user";
+import { User } from "../../libs/types/user";
 import { codeVerifierCookieName, stateCookieName } from "./url";
 import { getCookie } from "hono/cookie";
 import { hash } from "bcrypt";
 import { setCookie } from "hono/cookie";
 import { sql } from "bun";
-import { token } from "../../../libs/helpers/token";
+import { token } from "../../libs/helpers/token";
 
 app.get("api/oauth/callback/:provider", async (c) => {
   const provider = c.req.param("provider") as OauthProvider;

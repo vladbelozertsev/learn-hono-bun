@@ -1,10 +1,10 @@
 import { HTTPException } from "hono/http-exception";
-import { User } from "../../../libs/types/user";
-import { delkeys } from "../../../libs/helpers/utils";
+import { User } from "../../libs/types/user";
+import { delkeys } from "../../libs/helpers/utils";
 import { hash } from "bcrypt";
 import { sql } from "bun";
-import { token } from "../../../libs/helpers/token";
-import { validator } from "../../../libs/mws/validator";
+import { token } from "../../libs/helpers/token";
+import { validator } from "../../libs/mws/validator";
 import { z } from "zod";
 
 const jsonv = validator({

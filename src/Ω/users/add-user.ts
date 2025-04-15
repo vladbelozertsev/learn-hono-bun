@@ -1,9 +1,9 @@
-import { User } from "../../../libs/types/user.js";
-import { delkeys, sanitize } from "../../../libs/helpers/utils/index.js";
+import { User } from "../../libs/types/user.js";
+import { delkeys, sanitize } from "../../libs/helpers/utils/index.js";
 import { hash } from "bcrypt";
 import { sql } from "bun";
-import { token } from "../../../libs/helpers/token/index.js";
-import { validator } from "../../../libs/mws/validator.js";
+import { token } from "../../libs/helpers/token/index.js";
+import { validator } from "../../libs/mws/validator.js";
 import { z } from "zod";
 
 const jsonv = validator({

@@ -1,3 +1,3 @@
-import "./google";
 import "./login";
+import "./logout";
 import "./refresh";

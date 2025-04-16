@@ -36,10 +36,10 @@ app.get("api/oauth/callback/:provider", async (c) => {
     const oauthUser = await client.fetchUser(code, codeVerifier);
 
     const [dbUser]: [User["value"] | undefined] = await sql`
-        SELECT * FROM "Users"
-        WHERE "oauth" = ${provider}
-        AND "oauthId" = ${oauthUser.id}
-      `;
+      SELECT * FROM "Users"
+      WHERE "oauth" = ${provider}
+      AND "oauthId" = ${oauthUser.id}
+    `;
 
     if (dbUser) {
       const signature = await setRefreshTokenCookie(dbUser.id);

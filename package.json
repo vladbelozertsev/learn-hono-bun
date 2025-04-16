@@ -4,6 +4,7 @@
     "dev": "bun run --hot src/app/index.ts"
   },
   "dependencies": {
+    "@a2seven/yoo-checkout": "^1.1.4",
     "@hono/oauth-providers": "^0.7.1",
     "@hono/zod-validator": "^0.4.3",
     "@prisma/client": "^6.5.0",

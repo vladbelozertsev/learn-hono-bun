@@ -37,10 +37,10 @@ app.post("api/auth/refresh", refresh, async (c) => {
   const signature = await hash(refreshToken.split(".")[2], 10);
 
   await sql`
-      UPDATE "Users"
-      SET "signature" = ${signature}
-      WHERE "id" = ${tokenDecoded.id};
-    `;
+    UPDATE "Users"
+    SET "signature" = ${signature}
+    WHERE "id" = ${tokenDecoded.id};
+  `;
 
   return c.json({ accessToken, refreshToken });
 });

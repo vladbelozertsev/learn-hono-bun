@@ -1,7 +1,7 @@
 import crypto from "crypto";
 import { HTTPException } from "hono/http-exception";
 import { OauthProvider, oauthClient } from "./client/-all";
-import { setCookie } from "hono/cookie";
+import { setSecureCookie } from "../../libs/helpers/utils";
 
 export const stateCookieName = "oauth_state";
 export const codeVerifierCookieName = "oauth_code_verifier";
@@ -13,16 +13,7 @@ app.get("api/oauth/url/:provider", (c) => {
   const state = crypto.randomBytes(64).toString("hex").normalize();
   const codeVerifier = crypto.randomBytes(64).toString("hex").normalize();
 
-  const setOauthCookies = (name: string, value: string) => {
-    setCookie(c, name, value, {
-      // secure: true,
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: 600,
-    });
-  };
-
-  setOauthCookies(stateCookieName, state);
-  setOauthCookies(codeVerifierCookieName, codeVerifier);
+  setSecureCookie(c, stateCookieName, state, { maxAge: 600 });
+  setSecureCookie(c, codeVerifierCookieName, codeVerifier, { maxAge: 600 });
   return c.json({ url: clent.createAuthUrl(state, codeVerifier) });
 });

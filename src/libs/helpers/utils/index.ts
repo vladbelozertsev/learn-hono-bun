@@ -1,3 +1,7 @@
+import { Context } from "hono";
+import { CookieOptions } from "hono/utils/cookie";
+import { setCookie } from "hono/cookie";
+
 export const withset = <T>(prams: T) => {
   const arr = Object.entries(!!prams && typeof prams === "object" ? prams : {});
   const entries = arr.map((el) => [el[0], { set: el[1] }]);
@@ -29,6 +33,15 @@ export const sanitize = (text: string) => {
     "/": "&#47;",
   };
   return text.replace(/[<>&'"\/]/g, (char: string): string => map[char]);
+};
+
+export const setSecureCookie = (c: Context<any, any, any>, name: string, value: string, options?: CookieOptions) => {
+  setCookie(c, name, value, {
+    // secure: true,
+    httpOnly: true,
+    sameSite: "lax",
+    ...options,
+  });
 };
 
 //https://github.com/colinhacks/zod/discussions/1358

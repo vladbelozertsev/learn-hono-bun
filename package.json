@@ -1,6 +1,7 @@
 {
   "name": "server",
   "scripts": {
+    "ts": "tsc --skipLibCheck --outDir ./__tscTempDelete__ && rm -rf __tscTempDelete__",
     "dev": "bun run --hot src/app/index.ts"
   },
   "dependencies": {
@@ -13,7 +14,6 @@
     "bcrypt": "^5.1.1",
     "file-type": "^20.4.1",
     "hono": "^4.7.5",
-    "i": "^0.3.7",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "zod": "^3.24.2"

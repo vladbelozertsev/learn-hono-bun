@@ -26,7 +26,7 @@ const verifyToken = async (token: string) => {
   const secret = process.env.JWT_REFRESH_SECRET;
   if (!secret) throw new HTTPException(401, { message: "Process env failed" });
   const result = await verify(token, secret).catch((msg) => ({ err: true, msg: msg?.name }));
-  if (!result) throw new HTTPException(401, { message: "Token verification failed" });
+  if (!result) throw new HTTPException(401, { message: "Refresh token verification failed" });
   if (result?.err) throw new HTTPException(401, { message: JSON.stringify(result?.msg) });
   return true;
 };

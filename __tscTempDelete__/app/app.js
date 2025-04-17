@@ -1,25 +1,20 @@
-import { Hono } from "hono";
-import { cors } from "hono/cors";
-import { privatemw } from "../libs/mws/private";
-import { serveStatic } from "hono/bun";
-
-export const _app = new Hono();
-_app.get("public/*", serveStatic({}));
-
-_app.get("private/*", privatemw, serveStatic({}));
-
-_app.use(
-  "*",
-  cors({
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports._app = void 0;
+var hono_1 = require("hono");
+var cors_1 = require("hono/cors");
+var private_1 = require("../libs/mws/private");
+var bun_1 = require("hono/bun");
+exports._app = new hono_1.Hono();
+exports._app.get("public/*", (0, bun_1.serveStatic)({}));
+exports._app.get("private/*", private_1.privatemw, (0, bun_1.serveStatic)({}));
+exports._app.use("*", (0, cors_1.cors)({
     origin: "http://localhost:3001",
     // allowHeaders: ["Origin", "Content-Type", "Authorization", "Access-Control-Allow-Origin"],
     // allowMethods: ["GET", "OPTIONS", "POST", "PUT", "DELETE"],
     credentials: true, // for cookies
-  })
-);
-
-global.app = _app;
-
+}));
+global.app = exports._app;
 /**
  * Typescript errors:
  * 1. install global typescript: <| bun install -g typescript |>

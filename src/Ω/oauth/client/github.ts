@@ -1,8 +1,8 @@
-import { OAuthClient } from "./-base";
+import { OAuthBase } from "./-base";
 import { z } from "zod";
 
 export function createGithubOAuthClient() {
-  return new OAuthClient({
+  return new OAuthBase({
     provider: "github",
     clientId: process.env.GITHUB_CLIENT_ID || "",
     clientSecret: process.env.GITHUB_CLIENT_SECRET || "",

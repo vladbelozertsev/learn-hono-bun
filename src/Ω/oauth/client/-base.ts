@@ -1,9 +1,8 @@
-import type { OauthProvider } from "./-all";
 import crypto from "crypto";
 import { z } from "zod";
 
 export class OAuthBase<T> {
-  private readonly provider: OauthProvider;
+  private readonly provider: string;
   private readonly clientId: string;
   private readonly clientSecret: string;
   private readonly scopes: string[];
@@ -25,7 +24,7 @@ export class OAuthBase<T> {
     urls,
     userInfo,
   }: {
-    provider: OauthProvider;
+    provider: string;
     clientId: string;
     clientSecret: string;
     scopes: string[];

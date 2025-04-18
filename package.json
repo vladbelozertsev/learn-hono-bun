@@ -1,7 +1,8 @@
 {
   "name": "server",
   "scripts": {
-    "ts": "tsc --skipLibCheck --outDir ./__tscTempDelete__ && rm -rf __tscTempDelete__",
+    "ts": "tsc --skipLibCheck --noEmit",
+    "tsw": "tsc --skipLibCheck --noEmit --watch",
     "dev": "bun run --hot src/app/index.ts"
   },
   "dependencies": {

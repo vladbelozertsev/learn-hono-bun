@@ -1,4 +1,5 @@
 import { YooCheckout } from "@a2seven/yoo-checkout";
+
 // OR const { YooCheckout } = require('@a2seven/yoo-checkout');
 
 app.get("api/yookassa", (c) => {

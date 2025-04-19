@@ -1,8 +1,7 @@
 import { HTTPException } from "hono/http-exception";
 import { User } from "../../libs/types/user";
 import { delkeys } from "../../libs/helpers/utils";
-import { hash } from "bcrypt";
-import { sql } from "bun";
+import { password, sql } from "bun";
 import { token } from "../../libs/helpers/token";
 import { validator } from "../../libs/mws/validator";
 import { z } from "zod";
@@ -28,7 +27,7 @@ app.post("api/auth", jsonv, async (c) => {
   if (user.password !== json.password) throw new HTTPException(401, { message: "Invalid password" });
   const refreshToken = await token.refresh(user.id);
   const accessToken = await token.access(user.id);
-  const signature = await hash(refreshToken.split(".")[2], 10);
+  const signature = await password.hash(refreshToken.split(".")[2]);
 
   await sql`
     UPDATE "Users"

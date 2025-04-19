@@ -7,8 +7,8 @@ export const auth = bearerAuth({
     const secret = process.env.JWT_ACCESS_SECRET;
     if (!secret) throw new HTTPException(401, { message: "Process env failed" });
     const result = await verify(token, secret).catch((msg) => ({ err: true, msg: msg?.name }));
-    if (!result) throw new HTTPException(401, { message: "Token verification failed" });
     if (result?.err) throw new HTTPException(401, { message: JSON.stringify(result?.msg) });
+    if (!result) throw new HTTPException(401, { message: "Token verification failed" });
     return true;
   },
 });

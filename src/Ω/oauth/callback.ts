@@ -2,9 +2,8 @@ import { OauthProvider, oauthClient } from "./client/-all";
 import { User } from "../../libs/types/user";
 import { codeVerifierCookieName, stateCookieName } from "./url";
 import { getCookie } from "hono/cookie";
-import { hash } from "bcrypt";
+import { password, sql } from "bun";
 import { setSecureCookie } from "../../libs/helpers/utils";
-import { sql } from "bun";
 import { token } from "../../libs/helpers/token";
 
 app.get("api/oauth/callback/:provider", async (c) => {
@@ -22,7 +21,7 @@ app.get("api/oauth/callback/:provider", async (c) => {
 
   const setRefreshTokenCookie = async (userId: number) => {
     const refreshToken = await token.refresh(userId);
-    const signature = await hash(refreshToken.split(".")[2], 10);
+    const signature = await password.hash(refreshToken.split(".")[2]);
     setSecureCookie(c, "refresh_token", refreshToken);
     return signature;
   };

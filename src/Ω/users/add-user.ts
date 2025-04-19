@@ -1,7 +1,6 @@
 import { User } from "../../libs/types/user.js";
 import { delkeys, sanitize } from "../../libs/helpers/utils/index.js";
-import { hash } from "bcrypt";
-import { sql } from "bun";
+import { password, sql } from "bun";
 import { token } from "../../libs/helpers/token/index.js";
 import { validator } from "../../libs/mws/validator.js";
 import { z } from "zod";
@@ -16,7 +15,7 @@ const jsonv = validator({
 });
 
 app.post("api/users", jsonv, async (c) => {
-  const { email, name, password } = c.req.valid("json");
+  const { email, name, password: pass } = c.req.valid("json");
 
   const [dbUser]: [User["value"] | undefined] = await sql`
     SELECT * FROM "Users"
@@ -27,13 +26,13 @@ app.post("api/users", jsonv, async (c) => {
   if (dbUser) return c.text("Email already busy", 401);
 
   const [user]: [User["value"]] = await sql`
-    INSERT INTO "Users" ${sql({ name, email, password })}
+    INSERT INTO "Users" ${sql({ name, email, password: pass })}
     RETURNING *
   `;
 
   const refreshToken = await token.refresh(user.id);
   const accessToken = await token.access(user.id);
-  const signature = await hash(refreshToken.split(".")[2], 10);
+  const signature = await password.hash(refreshToken.split(".")[2]);
 
   await sql`
     UPDATE "Users"
